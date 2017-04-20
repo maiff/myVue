@@ -1,3 +1,4 @@
+import MyArray from './myArray'
 class Observer {
   constructor (data) {
     this.data = data
@@ -8,8 +9,12 @@ class Observer {
     let val
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
+        if (obj[key]['__isConvert__']) return
         val = obj[key]
-
+        if (Array.isArray(val)) {
+          obj[key] = new MyArray(...val)
+          val = obj[key]
+        }
         if (typeof val === 'object') {
           new Observer(val)
         }
@@ -20,6 +25,7 @@ class Observer {
   }
 
   convert (key, val) {
+    this.data[key]['__isConvert__'] = true
     Object.defineProperty(this.data, key, {
       enumerable: true,
       configurable: true,
@@ -36,5 +42,5 @@ class Observer {
     })
   }
 }
-
+new Observer()
 export default Observer
