@@ -1,0 +1,17 @@
+{
+  "name": "my-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c ./build/build.js",
+    "dev": "rollup -c ./build/build.js -w"
+  },
+  "author": "maiff",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^0.41.6",
+    "rollup-watch": "^3.2.2"
+  }
+}
