@@ -1,4 +1,6 @@
 import MyArray from './myArray'
+// import { define } from '../until'
+import { globalEvent } from '../until'
 class Observer {
   constructor (data) {
     this.data = data
@@ -9,7 +11,6 @@ class Observer {
     let val
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
-        if (obj[key]['__isConvert__']) return
         val = obj[key]
         if (Array.isArray(val)) {
           obj[key] = new MyArray(...val)
@@ -25,22 +26,21 @@ class Observer {
   }
 
   convert (key, val) {
-    this.data[key]['__isConvert__'] = true
     Object.defineProperty(this.data, key, {
-      enumerable: true,
+      enumerable: false,
       configurable: true,
       get: function () {
         console.log('你访问了' + key)
         return val
       },
       set: function (newVal) {
-        console.log('你设置了' + key)
         console.log('新的' + key + ' = ' + newVal)
         if (newVal === val) return
         val = newVal
+        globalEvent.emit('set')
       }
     })
   }
 }
-new Observer()
+
 export default Observer

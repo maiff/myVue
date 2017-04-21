@@ -1,3 +1,3 @@
 import Observer from './observer/Observer'
-
-export {Observer}
+import Vue from './vue/Vue'
+export {Observer, Vue}
