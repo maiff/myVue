@@ -1,4 +1,4 @@
-var _ = require('../dest/index')
+var _ = require('../dist/index')
 
 let Vue = _.Vue
 
