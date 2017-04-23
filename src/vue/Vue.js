@@ -14,5 +14,18 @@ class Vue {
   _updata () {
     this.$options.render()
   }
+  _proxy (key) {
+    const self = this
+    Object.defineProperty(self, key, {
+      configurable: true,
+      enumerable: true,
+      get: function proxyGetter () {
+        return self.$data[key]
+      },
+      set: function proxySetter (val) {
+        self.$data[key] = val
+      }
+    })
+  }
 }
 export default Vue
