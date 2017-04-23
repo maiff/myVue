@@ -1,6 +1,6 @@
 import MyArray from './myArray'
 // import { define } from '../until'
-import { globalEvent } from '../until'
+import Dep from './Dep'
 class Observer {
   constructor (data) {
     this.data = data
@@ -26,18 +26,21 @@ class Observer {
   }
 
   convert (key, val) {
+    const dep = new Dep()
     Object.defineProperty(this.data, key, {
       enumerable: false,
       configurable: true,
       get: function () {
-        console.log('你访问了' + key)
+        if (Dep.target) {
+          dep.add(Dep.target)
+        }
         return val
       },
       set: function (newVal) {
-        console.log('新的' + key + ' = ' + newVal)
+        // console.log('新的' + key + ' = ' + newVal)
         if (newVal === val) return
         val = newVal
-        globalEvent.emit('set')
+        dep.notify()
       }
     })
   }
