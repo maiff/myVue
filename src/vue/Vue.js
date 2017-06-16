@@ -21,6 +21,7 @@ class Vue {
     console.log(vdom)
   }
   _render () {
+    console.log('render~')
     return this.$options.render.call(this)
   }
   _proxy (key) {

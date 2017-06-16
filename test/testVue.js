@@ -16,6 +16,7 @@ var demo = new Vue({
 })
 console.log(demo.text)
 setTimeout(function () {
-  demo.other = 2
+  demo.text = 2
+  demo.other = 22
   console.log(demo.text)
 }, 3000)
